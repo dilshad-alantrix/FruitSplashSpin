@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using TMPro; 
 public class GameController : MonoBehaviour
 {
 
     public SpriteRenderer[] slotIcons;
-    public TMP_Text Text;
+    public TMP_Text TextMessage;
+    private bool isChecked;
+
+
 
     void Start()
     {
@@ -19,29 +22,58 @@ public class GameController : MonoBehaviour
         if (slotIcons[0].GetComponent<SlotMachine>().isStotp && slotIcons[1].GetComponent<SlotMachine>().isStotp
          && slotIcons[2].GetComponent<SlotMachine>().isStotp)
         {
-            if (slotIcons[0].sprite == slotIcons[1].sprite && slotIcons[1].sprite == slotIcons[2].sprite)
+            if (isChecked == false)
             {
-                Text.text = "you win";
+                isChecked = true;
+
+                if (slotIcons[0].sprite == slotIcons[1].sprite && slotIcons[1].sprite == slotIcons[2].sprite)
+                {
+                    TextMessage.text = "3X You Win!!";
+                    CoinManager.instance.MultiBetCoin(3);
+                    AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeOneClip);
+                    ParticleManager.instance.PlayParticle();
+                }
+                else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[0].sprite == slotIcons[2].sprite)
+                {
+                    TextMessage.text = "2X !!";
+                    CoinManager.instance.MultiBetCoin(2);
+                    AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeTwoClip);
+                    ParticleManager.instance.PlayParticle();
+                }
+                else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[1].sprite != slotIcons[2].sprite && slotIcons[0].sprite != slotIcons[2].sprite)
+                {
+                    TextMessage.text = "1X !!";
+                    CoinManager.instance.MultiBetCoin(1);
+                    AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeTwoClip);
+                    ParticleManager.instance.PlayParticle();
+                }
+                else
+                {
+                    TextMessage.text = "Better Luck Next Time!!";
+                }
             }
-            else
-            {
-                Text.text = "you Loose";
-            }
+            
         }
-        else if(slotIcons[0].GetComponent<SlotMachine>().isSpinning || slotIcons[1].GetComponent<SlotMachine>().isSpinning
+        else if (slotIcons[0].GetComponent<SlotMachine>().isSpinning || slotIcons[1].GetComponent<SlotMachine>().isSpinning
          || slotIcons[2].GetComponent<SlotMachine>().isSpinning)
         {
-             Text.text = "Good Luck!!";
+            TextMessage.text = "Good Luck!!";
         }
         else
         {
-          Text.text = "Press Spin!!";
+            TextMessage.text = "Press Spin!!";
         }
 
     }
 
-    public void CheckWin()
+    public void startSpin()
     {
-      
-    }
+        isChecked = false;
+        CoinManager.instance.SubTotalCoin();
+       foreach (var slot in slotIcons)
+        {
+            slot.GetComponent<SlotMachine>().spinStart();
+        }
+   }
 }
+
