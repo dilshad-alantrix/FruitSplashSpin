@@ -64,10 +64,23 @@ public class CoinManager : MonoBehaviour
             TotalCoinText.text = TotalCoin.ToString();
         }
     }
-    
+
     public void shopAddCoin(int coin)
     {
         TotalCoin += coin;
         TotalCoinText.text = TotalCoin.ToString();
+        AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeTwoClip);
+        ParticleManager.instance.PlayParticle();
+    }
+    public bool ChekCons()
+    {
+        if (TotalCoin >= BetCoin)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
