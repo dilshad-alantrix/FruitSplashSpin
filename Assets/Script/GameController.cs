@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro; 
 using UnityEngine.UI;
@@ -9,18 +7,23 @@ public class GameController : MonoBehaviour
     public SpriteRenderer[] slotIcons;
     public TMP_Text TextMessage;
     public Button button;
-    private bool isChecked;
+    private bool _isChecked;
 
 
 
     void Update()
     {
-        if (slotIcons[0].GetComponent<SlotMachine>().isStotp && slotIcons[1].GetComponent<SlotMachine>().isStotp
+          Check();   
+    }
+
+    private void Check()
+    {
+         if (slotIcons[0].GetComponent<SlotMachine>().isStotp && slotIcons[1].GetComponent<SlotMachine>().isStotp
          && slotIcons[2].GetComponent<SlotMachine>().isStotp)
         {
-            if (isChecked == false)
+            if (_isChecked == false)
             {
-                isChecked = true;
+                _isChecked = true;
 
 
                 if (slotIcons[0].sprite == slotIcons[1].sprite && slotIcons[1].sprite == slotIcons[2].sprite)
@@ -37,7 +40,8 @@ public class GameController : MonoBehaviour
                     AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeTwoClip);
                     ParticleManager.instance.PlayParticle();
                 }
-                else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[1].sprite != slotIcons[2].sprite && slotIcons[0].sprite != slotIcons[2].sprite)
+                else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[1].sprite != slotIcons[2].sprite
+                 && slotIcons[0].sprite != slotIcons[2].sprite)
                 {
                     TextMessage.text = "1X !!";
                     CoinManager.instance.MultiBetCoin(1);
@@ -74,15 +78,14 @@ public class GameController : MonoBehaviour
         }
             
               
-        }
-       
+    }
 
     
 
     public void startSpin()
     {
 
-        isChecked = false;
+        _isChecked = false;
         CoinManager.instance.SubTotalCoin();
         button.interactable = false;
         foreach (var slot in slotIcons)
