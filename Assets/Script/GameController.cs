@@ -1,16 +1,25 @@
 using UnityEngine;
 using TMPro; 
 using UnityEngine.UI;
+using JetBrains.Annotations;
 public class GameController : MonoBehaviour
 {
 
-    public SpriteRenderer[] slotIcons;
-    public TMP_Text TextMessage;
-    public Button button;
+    [SerializeField] SpriteRenderer[] slotIcons;
+    [SerializeField] TMP_Text TextMessage;
+    [SerializeField] Button button;
+    [SerializeField] Animator Handle_animator;
     private bool _isChecked;
 
 
-
+    void OnEnable()
+    {
+       button.onClick.AddListener(startSpin);
+    }
+    void OnDisable()
+    {
+        button.onClick.RemoveListener(startSpin);
+    }
     void Update()
     {
           Check();   
@@ -29,24 +38,24 @@ public class GameController : MonoBehaviour
                 if (slotIcons[0].sprite == slotIcons[1].sprite && slotIcons[1].sprite == slotIcons[2].sprite)
                 {
                     TextMessage.text = "3X You Win!!";
-                    CoinManager.instance.MultiBetCoin(3);
-                    AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeOneClip);
-                    ParticleManager.instance.PlayParticle();
+                    CoinManager.Instance.MultiBetCoin(3);
+                    AudioManager.Instance.PlaySfx(AudioManager.Instance.CoinTypeOneClip);
+                    ParticleManager.Instance.PlayParticle();
                 }
                 else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[0].sprite == slotIcons[2].sprite)
                 {
                     TextMessage.text = "2X !!";
-                    CoinManager.instance.MultiBetCoin(2);
-                    AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeTwoClip);
-                    ParticleManager.instance.PlayParticle();
+                    CoinManager.Instance.MultiBetCoin(2);
+                    AudioManager.Instance.PlaySfx(AudioManager.Instance.CoinTypeTwoClip);
+                    ParticleManager.Instance.PlayParticle();
                 }
                 else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[1].sprite != slotIcons[2].sprite
                  && slotIcons[0].sprite != slotIcons[2].sprite)
                 {
                     TextMessage.text = "1X !!";
-                    CoinManager.instance.MultiBetCoin(1);
-                    AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeTwoClip);
-                    ParticleManager.instance.PlayParticle();
+                    CoinManager.Instance.MultiBetCoin(1);
+                    AudioManager.Instance.PlaySfx(AudioManager.Instance.CoinTypeTwoClip);
+                    ParticleManager.Instance.PlayParticle();
                 }
                 else
                 {
@@ -54,7 +63,7 @@ public class GameController : MonoBehaviour
                 }
             }
 
-            if (!CoinManager.instance.ChekCons())
+            if (!CoinManager.Instance.ChekCons())
                 {
                     button.interactable = false;
                     TextMessage.text = "No More Coins!!";
@@ -82,11 +91,12 @@ public class GameController : MonoBehaviour
 
     
 
-    public void startSpin()
+    private void startSpin()
     {
 
         _isChecked = false;
-        CoinManager.instance.SubTotalCoin();
+        Handle_animator.SetTrigger("HandlePull");
+        CoinManager.Instance.SubTotalCoin();
         button.interactable = false;
         foreach (var slot in slotIcons)
         {

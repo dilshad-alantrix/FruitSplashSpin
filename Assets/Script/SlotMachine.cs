@@ -4,11 +4,11 @@ using System.Collections;
 public class SlotMachine : MonoBehaviour
 {
     [SerializeField] float ScrollSpeed = 10f;
-    public Sprite[] icons;
+     public Sprite[] icons;
     public bool isStotp;
     public bool isSpinning;
 
-
+    
     private SpriteRenderer _renderer;
     private Animator _animator;
 
@@ -64,7 +64,8 @@ public class SlotMachine : MonoBehaviour
     }
     public void PlaySound()
     {
-        AudioManager.instance.PlaySfx(AudioManager.instance.SpinClip);
+        AudioManager.Instance.PlaySfx(AudioManager.Instance.SpinClip);
     }
+
 
 }

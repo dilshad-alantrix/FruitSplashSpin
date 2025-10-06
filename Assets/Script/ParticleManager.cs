@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class ParticleManager : MonoBehaviour
 {
-    public static ParticleManager instance;
+    public static ParticleManager Instance;
 
     public ParticleSystem CoinParticle;
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {

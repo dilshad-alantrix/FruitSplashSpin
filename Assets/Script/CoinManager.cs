@@ -3,7 +3,7 @@ using TMPro;
 
 public class CoinManager : MonoBehaviour
 {
-    public static CoinManager instance;
+    public static CoinManager Instance;
 
     [SerializeField] TMP_Text BetCoinText;
     [SerializeField] TMP_Text TotalCoinText;
@@ -13,9 +13,9 @@ public class CoinManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -67,8 +67,8 @@ public class CoinManager : MonoBehaviour
     {
         _totalCoin += coin;
         TotalCoinText.text = _totalCoin.ToString();
-        AudioManager.instance.PlaySfx(AudioManager.instance.CoinTypeTwoClip);
-        ParticleManager.instance.PlayParticle();
+        AudioManager.Instance.PlaySfx(AudioManager.Instance.CoinTypeTwoClip);
+        ParticleManager.Instance.PlayParticle();
     }
     public bool ChekCons()
     {
