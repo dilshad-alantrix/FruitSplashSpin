@@ -64,7 +64,7 @@ public class SlotMachine : MonoBehaviour
     }
     public void PlaySound()
     {
-        AudioManager.Instance.PlaySfx(AudioManager.Instance.SpinClip);
+        AudioManager.Instance.PlaySpinSound();
     }
 
 

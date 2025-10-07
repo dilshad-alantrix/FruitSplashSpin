@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject InfoPanel;
     [SerializeField] GameObject Coinpanel;
 
+    [SerializeField] Loading loading;
+
 
     private void Awake()
     {
@@ -32,6 +34,13 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Homepanel.SetActive(true);
+        GamePanel.SetActive(false);
+        Coinpanel.SetActive(false);
+        MenuPanel.SetActive(false);
+        InfoPanel.SetActive(false);
+
     }
 
     private void OnEnable()
@@ -64,6 +73,7 @@ public class UIManager : MonoBehaviour
 
     private void play()
     {
+        loading.Load();
         Homepanel.SetActive(false);
         GamePanel.SetActive(true);
         Coinpanel.SetActive(false);
@@ -78,6 +88,7 @@ public class UIManager : MonoBehaviour
 
     private void backToHome()
     {
+        loading.Load();
         Homepanel.SetActive(true);
         GamePanel.SetActive(false);
         Coinpanel.SetActive(false);

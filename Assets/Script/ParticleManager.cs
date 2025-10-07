@@ -4,7 +4,19 @@ public class ParticleManager : MonoBehaviour
 {
     public static ParticleManager Instance;
 
-    public ParticleSystem CoinParticle;
+    [SerializeField] ParticleSystem CoinParticle;
+    [SerializeField] GameController gameController;
+
+    private void OnEnable()
+    {
+        gameController.OnStop += PlayParticle;
+    }
+    
+    private void OnDisable()
+    {
+        
+    }
+
 
     private void Awake()
     {
@@ -20,8 +32,9 @@ public class ParticleManager : MonoBehaviour
         CoinParticle.Stop();
     }
    
-   public void PlayParticle()
+   private void PlayParticle(int mulitiple)
     {
+        CoinParticle.emissionRate = 10 * mulitiple;
         CoinParticle.Play();
     }
 

@@ -1,20 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Compression;
 using UnityEngine;
-using UnityEngine.UI;   
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    public AudioSource SFXSource;
+    [SerializeField] AudioSource SFXSource;
+    [SerializeField] GameController gameController;
     public AudioClip SpinClip;
     public AudioClip CoinTypeOneClip;
     public AudioClip CoinTypeTwoClip;
 
-    public Toggle toggleOne;
-    public Toggle toggleTwo;
 
-
+    void OnEnable()
+    {
+        gameController.OnStop += PlaySfx;
+    }
+    void OnDisable()
+    {
+        gameController.OnStop -= PlaySfx;
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -26,25 +33,25 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-
-
-        toggleOne.isOn = PlayerPrefs.GetInt("Sound") == 1 ? true : false;
-        toggleTwo.isOn = PlayerPrefs.GetInt("Sound") == 1 ? true : false;
     }
 
-
-    void Update()
+    private void PlaySfx(int multiple)
     {
-        AudioListener.volume = toggleOne.isOn ? 1 : 0;
-        PlayerPrefs.SetInt("Sound", toggleOne.isOn ? 1 : 0);
+        if (multiple == 3)
+        {
+            SFXSource.PlayOneShot(CoinTypeOneClip);
+        }
+        else
+        {
+            SFXSource.PlayOneShot(CoinTypeTwoClip);
+        }
 
-        AudioListener.volume = toggleTwo.isOn ? 1 : 0;
-        PlayerPrefs.SetInt("Sound", toggleTwo.isOn ? 1 : 0);    
     }
-       
-    public void PlaySfx(AudioClip clip)
+
+    public void PlaySpinSound()
     {
-        SFXSource.PlayOneShot(clip);
+        SFXSource.PlayOneShot(SpinClip);
     }
 
 }
+
