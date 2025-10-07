@@ -122,10 +122,10 @@ public class UIManager : MonoBehaviour
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(true);
     }
-   private void menu()
+    private void menu()
     {
         Homepanel.SetActive(false);
-          GamePanel.SetActive(true);
+        GamePanel.SetActive(true);
         Coinpanel.SetActive(false);
         MenuPanel.SetActive(true);
         InfoPanel.SetActive(false);

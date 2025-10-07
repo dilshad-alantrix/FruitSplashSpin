@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: 'Alantrix Geim '
+  companyName: 'AlantrixGeim '
   productName: Fruit Splash Spin
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -276,7 +276,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 1b0b9454144c247c6b8531bded5661f7, type: 3}
+      m_Icon: {fileID: 2800000, guid: 172ef0a475a994aa797ec01bea0b9772, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

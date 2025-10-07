@@ -8,6 +8,7 @@ public class Mute : MonoBehaviour
     private Toggle _toggle;
     void Start()
     {
+        PlayerPrefs.SetInt("Sound", 1);
         _toggle = GetComponent<Toggle>();
         _toggle.isOn = PlayerPrefs.GetInt("Sound") == 1 ? true : false;
     }

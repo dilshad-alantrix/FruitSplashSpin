@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class Loading : MonoBehaviour
 {
-    [SerializeField] private Slider slider;
-    [SerializeField] private float fillTime = 2f;
+        [SerializeField] private float fillTime = 4f;
     [SerializeField] private GameObject loadingScreen;
 
     void Start()
@@ -21,12 +20,11 @@ public class Loading : MonoBehaviour
     }
     IEnumerator FillSlider()
     {
-        slider.value = 0;
+      
         float elapsed = 0f;
         while (elapsed < fillTime)
         {
             elapsed += Time.deltaTime;
-            slider.value = Mathf.Clamp01(elapsed / fillTime);
             yield return null;  
         }
         loadingScreen.SetActive(false);
