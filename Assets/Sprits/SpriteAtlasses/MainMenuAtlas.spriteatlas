@@ -53,14 +53,12 @@ SpriteAtlas:
     - {fileID: 1813338, guid: e8a81d5e86abd4d20b3a05c2bb6a6aa0, type: 3}
     - {fileID: -181976978, guid: e8a81d5e86abd4d20b3a05c2bb6a6aa0, type: 3}
     - {fileID: 508564956, guid: e8a81d5e86abd4d20b3a05c2bb6a6aa0, type: 3}
-    - {fileID: 21300000, guid: 14f8d6d7182ff4755aed3c6928660faa, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 07a4a092666714e43bc801b9d99e5074, type: 3}
-  - {fileID: 21300000, guid: 14f8d6d7182ff4755aed3c6928660faa, type: 3}
   - {fileID: 508564956, guid: e8a81d5e86abd4d20b3a05c2bb6a6aa0, type: 3}
   - {fileID: 1541609351, guid: e8a81d5e86abd4d20b3a05c2bb6a6aa0, type: 3}
   - {fileID: 1813338, guid: e8a81d5e86abd4d20b3a05c2bb6a6aa0, type: 3}
@@ -71,7 +69,6 @@ SpriteAtlas:
   - {fileID: -1183655178, guid: e8a81d5e86abd4d20b3a05c2bb6a6aa0, type: 3}
   m_PackedSpriteNamesToIndex:
   - logo
-  - BG
   - game ui jelly green_25
   - game ui jelly green_27
   - game ui jelly green_39

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject MenuPanel;
     [SerializeField] GameObject InfoPanel;
     [SerializeField] GameObject Coinpanel;
+    [SerializeField] GameObject MenuIcon;
 
     [SerializeField] Loading loading;
 
@@ -79,6 +81,8 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(false);
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
+        MenuIcon.SetActive(true);
+       
 
     }
     private void quit()
@@ -103,6 +107,7 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(false);
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
+        MenuIcon.SetActive(true);
     }
 
     private void shop()
@@ -129,5 +134,7 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(false);
         MenuPanel.SetActive(true);
         InfoPanel.SetActive(false);
+        MenuIcon.SetActive(false);
+
     }
 }

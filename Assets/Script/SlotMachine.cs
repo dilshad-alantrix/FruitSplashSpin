@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SlotMachine : MonoBehaviour
 {
@@ -7,15 +8,15 @@ public class SlotMachine : MonoBehaviour
      public Sprite[] icons;
     public bool isStotp;
     public bool isSpinning;
-
     
-    private SpriteRenderer _renderer;
+    
+    private Image image;
     private Animator _animator;
 
 
     void Start()
     {
-        _renderer = GetComponent<SpriteRenderer>();
+        image = GetComponent<Image>();
         _animator = GetComponent<Animator>();
         isStotp = false;
         isSpinning = false;
@@ -23,10 +24,7 @@ public class SlotMachine : MonoBehaviour
     }
 
 
-    void Update()
-    {
 
-    }
 
     public void spinStart()
     {
@@ -60,7 +58,7 @@ public class SlotMachine : MonoBehaviour
     public void ChangeIcon()
     {
         int index = Random.Range(0, icons.Length);
-        _renderer.sprite = icons[index];
+        image.sprite = icons[index];
     }
     public void PlaySound()
     {
