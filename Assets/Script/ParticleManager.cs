@@ -12,11 +12,13 @@ public class ParticleManager : MonoBehaviour
     private void OnEnable()
     {
         gameController.OnStop += PlayParticle;
+        CoinManager.Instance.ShopCoin += ShopCoins;
     }
 
     private void OnDisable()
     {
-
+        gameController.OnStop -= PlayParticle;
+          CoinManager.Instance.ShopCoin += ShopCoins;
     }
 
 
@@ -41,9 +43,14 @@ public class ParticleManager : MonoBehaviour
         CoinParticle.Play();
         if (mulitiple == 3)
         {
-             JackPort();
+            JackPort();
         }
-       
+
+
+    }
+    private void ShopCoins()
+    {
+        CoinParticle.Play();
     }
 
     private void JackPort()

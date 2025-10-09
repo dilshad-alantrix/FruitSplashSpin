@@ -112,7 +112,7 @@ public class GameController : MonoBehaviour
 
         StartCoroutine(restAllSlot());
         _isChecked = true;
-          button.interactable = true;
+        button.interactable = true;
     }
 
     IEnumerator restAllSlot()

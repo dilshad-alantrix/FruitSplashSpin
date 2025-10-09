@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class SlotMachine : MonoBehaviour
 {
     [SerializeField] float ScrollSpeed = 10f;
-     public Sprite[] icons;
+
+    public Sprite[] icons;
     public bool isStotp;
     public bool isSpinning;
     
@@ -20,10 +21,8 @@ public class SlotMachine : MonoBehaviour
         _animator = GetComponent<Animator>();
         isStotp = false;
         isSpinning = false;
-
+       
     }
-
-
 
 
     public void spinStart()

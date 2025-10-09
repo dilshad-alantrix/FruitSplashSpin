@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System;
+using UnityEngine.UI;
 
 public class CoinManager : MonoBehaviour
 {
@@ -9,6 +11,10 @@ public class CoinManager : MonoBehaviour
 
     [SerializeField] TMP_Text BetCoinText;
     [SerializeField] TMP_Text TotalCoinText;
+    [SerializeField] MyBtn AddCoin;
+     [SerializeField] MyBtn SubCoin;
+
+    public event Action ShopCoin;
 
     private int _betCoin;
     private int _totalCoin;
@@ -30,10 +36,14 @@ public class CoinManager : MonoBehaviour
         gameController.OnSpin += SubTotalCoin;
         gameController.OnStop += MultiBetCoin;
 
+        AddCoin.onBtnPressed += (s) => { AddBetCoin(); };
+        SubCoin.onBtnPressed += (s) => { SubBetCoin(); };
     }
     void OnDisable()
     {
         gameController.OnSpin -= SubTotalCoin;
+        AddCoin.onBtnPressed -= (s) => { AddBetCoin(); };
+        SubCoin.onBtnPressed -= (s) => { SubBetCoin(); };
     }
 
     void Start()
@@ -83,6 +93,7 @@ public class CoinManager : MonoBehaviour
     public void shopAddCoin(int coin)
     {
         _totalCoin += coin;
+        ShopCoin?.Invoke();
         setCoins();
         TotalCoinText.text = _totalCoin.ToString();
 
