@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +22,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject MenuIcon;
 
     [SerializeField] Loading loading;
+
+
+    public event Action onPress;
 
 
     private void Awake()
@@ -82,6 +83,7 @@ public class UIManager : MonoBehaviour
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
         MenuIcon.SetActive(true);
+        onPress?.Invoke();
        
 
     }
@@ -98,6 +100,8 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(false);
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
+           onPress?.Invoke();
+   
     }
 
     private void back()
@@ -108,6 +112,7 @@ public class UIManager : MonoBehaviour
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
         MenuIcon.SetActive(true);
+           onPress?.Invoke();
     }
 
     private void shop()
@@ -117,6 +122,7 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(true);
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
+           onPress?.Invoke();
     }
 
     private void info()
@@ -126,6 +132,7 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(false);
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(true);
+           onPress?.Invoke();
     }
     private void menu()
     {
@@ -135,6 +142,7 @@ public class UIManager : MonoBehaviour
         MenuPanel.SetActive(true);
         InfoPanel.SetActive(false);
         MenuIcon.SetActive(false);
+           onPress?.Invoke();
 
     }
 }

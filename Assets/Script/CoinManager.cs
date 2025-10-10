@@ -14,7 +14,6 @@ public class CoinManager : MonoBehaviour
     [SerializeField] MyBtn AddCoin;
      [SerializeField] MyBtn SubCoin;
 
-    public event Action ShopCoin;
 
     private int _betCoin;
     private int _totalCoin;
@@ -50,7 +49,7 @@ public class CoinManager : MonoBehaviour
     {
        
         _betCoin = 10;
-        _totalCoin = PlayerPrefs.GetInt("TotalCoin");
+        _totalCoin = PlayerPrefs.GetInt("TotalCoin",100);
         BetCoinText.text = _betCoin.ToString();
         TotalCoinText.text = _totalCoin.ToString();
 
@@ -58,7 +57,7 @@ public class CoinManager : MonoBehaviour
 
     public void AddBetCoin()
     {
-        if (_betCoin < _totalCoin)
+        if (_betCoin < _totalCoin && AddCoin.interactable)
         {
             _betCoin += 10;
             BetCoinText.text = _betCoin.ToString();
@@ -67,7 +66,7 @@ public class CoinManager : MonoBehaviour
 
     public void SubBetCoin()
     {
-        if (_betCoin > 10)
+        if (_betCoin > 10 && AddCoin.interactable)
         {
             _betCoin -= 10;
             BetCoinText.text = _betCoin.ToString();
@@ -93,7 +92,6 @@ public class CoinManager : MonoBehaviour
     public void shopAddCoin(int coin)
     {
         _totalCoin += coin;
-        ShopCoin?.Invoke();
         setCoins();
         TotalCoinText.text = _totalCoin.ToString();
 

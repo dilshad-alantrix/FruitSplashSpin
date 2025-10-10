@@ -9,18 +9,24 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
     [SerializeField] AudioSource SFXSource;
     [SerializeField] GameController gameController;
+    [SerializeField] UIManager uIManager;
     public AudioClip SpinClip;
-    public AudioClip CoinTypeOneClip;
-    public AudioClip CoinTypeTwoClip;
+    [SerializeField] AudioClip CoinTypeOneClip;
+    [SerializeField] AudioClip CoinTypeTwoClip;
+    [SerializeField] AudioClip BtnClick;
 
 
     void OnEnable()
     {
         gameController.OnStop += PlaySfx;
+        uIManager.onPress += PressSound;
+
     }
     void OnDisable()
     {
         gameController.OnStop -= PlaySfx;
+        uIManager.onPress -= PressSound;
+
     }
     private void Awake()
     {
@@ -39,11 +45,11 @@ public class AudioManager : MonoBehaviour
     {
         if (multiple == 3)
         {
-            SFXSource.PlayOneShot(CoinTypeOneClip);
+            SFXSource.PlayOneShot(CoinTypeTwoClip);
         }
         else
         {
-            SFXSource.PlayOneShot(CoinTypeTwoClip);
+            SFXSource.PlayOneShot(CoinTypeOneClip);
         }
 
     }
@@ -52,6 +58,10 @@ public class AudioManager : MonoBehaviour
     {
         SFXSource.PlayOneShot(SpinClip);
     }
-
+   
+   private void PressSound()
+    {
+        SFXSource.PlayOneShot(BtnClick);
+    }
 }
 
