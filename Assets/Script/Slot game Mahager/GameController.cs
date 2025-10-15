@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using CandyCoded.HapticFeedback;
-public class GameController : MonoBehaviour
+public class GameController : Subject
 {
     [Header("GamePlay")]
     [SerializeField] private Image[] slotIcons;
@@ -13,11 +13,12 @@ public class GameController : MonoBehaviour
 
 
     [Header("UI")]
-    [SerializeField] private TMP_Text TextMessage;
+
     [SerializeField] private Button SpinButton;
     [SerializeField] private Button SpinHandleButton;
     [SerializeField] private Button AddButton;
     [SerializeField] private Button SubButton;
+    
     
 
     private bool _isChecked;
@@ -56,31 +57,18 @@ public class GameController : MonoBehaviour
             //Check coin is avilable
             if (!CoinManager.Instance.ChekCons())
             {
-                SpinButton.interactable = false;
-                SpinHandleButton.interactable = false;
-                SubButton.interactable = true;
-                TextMessage.text = "No More Coins!!";
+                
+                NotifyObserver(GameState.NoCoin);
             }
-            else
-            {
-                SpinButton.interactable = true;
-                SubButton.interactable = true;
-                AddButton.interactable = true;
-                SpinHandleButton.interactable = true;
-            }
-
+            
 
         }
         else if (slots[0].isSpinning || slots[1].isSpinning
          || slots[2].isSpinning)
         {
-            TextMessage.text = "Good Luck!!";
+           
+             NotifyObserver(GameState.Spining);
         }
-        else
-        {
-            TextMessage.text = "Press Spin!!";
-        }
-
 
     }
     
@@ -88,29 +76,28 @@ public class GameController : MonoBehaviour
     {
           if (slotIcons[0].sprite == slotIcons[1].sprite && slotIcons[1].sprite == slotIcons[2].sprite)
                 {
-                    TextMessage.text = "3X JackPot!!";
-                    EventManager.OnSpinStop?.Invoke(3);
+                    
                     coinParticle.Play();
+                    NotifyObserver(GameState.Win3x);
                     HapticFeedback.MediumFeedback();
+                    
                 }
                 else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[0].sprite == slotIcons[2].sprite)
-                {
-                    TextMessage.text = "2X !!";
-                    EventManager.OnSpinStop?.Invoke(2);
+        {
+                    NotifyObserver(GameState.Win2x);
                     HapticFeedback.MediumFeedback();
 
                 }
                 else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[1].sprite != slotIcons[2].sprite
                  && slotIcons[0].sprite != slotIcons[2].sprite)
-                {
-                    TextMessage.text = "1X !!";
-                    EventManager.OnSpinStop?.Invoke(1);
+        {
+                    NotifyObserver(GameState.Win1x);
                     HapticFeedback.HeavyFeedback();
 
                 }
                 else
                 {
-                    TextMessage.text = "Better Luck Next Time!!";
+                   NotifyObserver(GameState.Loose);
                 }
     }
 
@@ -120,11 +107,7 @@ public class GameController : MonoBehaviour
 
         _isChecked = false;
         Handle_animator.SetTrigger("HandlePull");
-        EventManager.OnSpinStart?.Invoke();
-        SpinButton.interactable = false;
-        SpinHandleButton.interactable = false;
-        SubButton.interactable = false;
-        AddButton.interactable = false;
+        NotifyObserver(GameState.PressSpinBtn);
         foreach (var slot in slotIcons)
         {
             slot.GetComponent<SlotMachine>().spinStart();
@@ -139,6 +122,8 @@ public class GameController : MonoBehaviour
         _isChecked = true;
         SpinButton.interactable = true;
         SpinHandleButton.interactable = true;
+        AddButton.interactable = true;
+        SubButton.interactable = true;
     }
 
     IEnumerator restAllSlot()

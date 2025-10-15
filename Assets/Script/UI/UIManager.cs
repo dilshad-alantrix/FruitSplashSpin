@@ -24,8 +24,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject BaackgroundPanel;
 
     [SerializeField] private GameObject MenuIcon;
-   
+
     [SerializeField] private Loading loading;
+
+    public event Action OnUIButtonPress;
 
 
     private void Awake()
@@ -87,7 +89,7 @@ public class UIManager : MonoBehaviour
         MenuIcon.SetActive(true);
         BaackgroundPanel.SetActive(false);
 
-        EventManager.OnUIButtonPress?.Invoke();
+        OnUIButtonPress?.Invoke();
        
 
     }
@@ -104,7 +106,7 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(false);
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
-        EventManager.OnUIButtonPress?.Invoke();
+        OnUIButtonPress?.Invoke();
    
     }
 
@@ -118,7 +120,7 @@ public class UIManager : MonoBehaviour
         MenuIcon.SetActive(true);
          BaackgroundPanel.SetActive(false);
 
-        EventManager.OnUIButtonPress?.Invoke();
+        OnUIButtonPress?.Invoke();
     }
 
     private void shop()
@@ -130,7 +132,7 @@ public class UIManager : MonoBehaviour
         InfoPanel.SetActive(false);
          BaackgroundPanel.SetActive(true);
 
-        EventManager.OnUIButtonPress?.Invoke();
+        OnUIButtonPress?.Invoke();
     }
 
     private void info()
@@ -142,7 +144,7 @@ public class UIManager : MonoBehaviour
         InfoPanel.SetActive(true);
          BaackgroundPanel.SetActive(true);
 
-        EventManager.OnUIButtonPress?.Invoke();
+        OnUIButtonPress?.Invoke();
     }
     private void menu()
     {
@@ -154,7 +156,7 @@ public class UIManager : MonoBehaviour
         MenuIcon.SetActive(false);
          BaackgroundPanel.SetActive(true);
 
-        EventManager.OnUIButtonPress?.Invoke();
+        OnUIButtonPress?.Invoke();
 
     }
 }

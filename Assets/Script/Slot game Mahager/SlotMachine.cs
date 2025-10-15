@@ -68,7 +68,7 @@ public class SlotMachine : MonoBehaviour
     //Play slot spin sfx
     public void PlaySound()
     {
-       EventManager.OnPlaySlotSfx?.Invoke();
+        AudioManager.Instance.PlaySpinSound();
     }
 
 

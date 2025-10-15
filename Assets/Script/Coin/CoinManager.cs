@@ -2,10 +2,11 @@ using UnityEngine;
 using TMPro;
 
 
-public class CoinManager : MonoBehaviour
+public class CoinManager : MonoBehaviour, Iobserver
 {
     public static CoinManager Instance;
-
+    
+     [SerializeField] private  Subject ControllerSubject;
     [SerializeField] private TMP_Text BetCoinText;
     [SerializeField] private TMP_Text TotalCoinText;
     [SerializeField] private MyBtn AddCoin;
@@ -29,8 +30,7 @@ public class CoinManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventManager.OnSpinStart += SubTotalCoin;
-        EventManager.OnSpinStop += MultiBetCoin;
+        ControllerSubject.AddObserver(this);
 
         AddCoin.onBtnPressed += (s) => { AddBetCoin(); };
         SubCoin.onBtnPressed += (s) => { SubBetCoin(); };
@@ -40,14 +40,34 @@ public class CoinManager : MonoBehaviour
     }
     void OnDisable()
     {
-        EventManager.OnSpinStart -= SubTotalCoin;
-        EventManager.OnSpinStop -= MultiBetCoin;
-
+        ControllerSubject.RemoveObserver(this);
         AddCoin.onBtnPressed -= (s) => { AddBetCoin(); };
         SubCoin.onBtnPressed -= (s) => { SubBetCoin(); };
 
         AddCoin.onClick.RemoveListener(AddBetCoin);
         SubCoin.onClick.RemoveListener(SubBetCoin);
+    }
+
+    public void onNotify(GameState state)
+    {
+
+        if (state == GameState.PressSpinBtn)
+        {
+            SubTotalCoin();
+        }
+        else if (state == GameState.Win1x)
+        {
+            MultiBetCoin(1);
+        }
+         else if(state == GameState.Win2x)
+        {
+             MultiBetCoin(2);
+        }
+         else if(state == GameState.Win3x)
+        {
+             MultiBetCoin(3);
+        }
+        
     }
 
     void Start()

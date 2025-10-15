@@ -1,11 +1,13 @@
 using UnityEngine;
 
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoBehaviour,Iobserver
 {
     public static AudioManager Instance;
+
+    [SerializeField] private Subject ControllerSubject;
+    [SerializeField] UIManager uIManager;
     [SerializeField] private AudioSource SFXSource;
-    [SerializeField] private GameController gameController;
     [SerializeField] private AudioClip CoinTypeOneClip;
     [SerializeField] private AudioClip CoinTypeTwoClip;
     [SerializeField] private AudioClip BtnClick;
@@ -14,16 +16,14 @@ public class AudioManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventManager.OnSpinStop += PlaySfx;
-        EventManager.OnUIButtonPress += PressSound;
-        EventManager.OnPlaySlotSfx += PlaySpinSound;
+        ControllerSubject.AddObserver(this);
+        uIManager.OnUIButtonPress += PressSound;     
 
     }
     void OnDisable()
     {
-        EventManager.OnSpinStop -= PlaySfx;
-        EventManager.OnUIButtonPress -= PressSound;
-         EventManager.OnPlaySlotSfx -= PlaySpinSound;
+        ControllerSubject.RemoveObserver(this);
+        uIManager.OnUIButtonPress -= PressSound;
 
     }
     private void Awake()
@@ -38,23 +38,36 @@ public class AudioManager : MonoBehaviour
         }
 
     }
+    public void onNotify(GameState state)
+    {
+        if (state == GameState.Win1x || state == GameState.Win2x)
+        {
+            PlayMatchSFX();
+        }
+        else if(state == GameState.Win3x)
+        {
+            PlayJackPotSFX();
+        }
+    }
 
     //Play Sfx based on bones
-    private void PlaySfx(int multiple)
+    private void PlayJackPotSFX()
     {
-        if (multiple == 3)
-        {
-            SFXSource.PlayOneShot(CoinTypeTwoClip);
-        }
-        else
-        {
-            SFXSource.PlayOneShot(CoinTypeOneClip);
-        }
+
+        SFXSource.PlayOneShot(CoinTypeTwoClip);
+
+    }
+     private void PlayMatchSFX()
+    {
+        
+        
+        SFXSource.PlayOneShot(CoinTypeOneClip);
+        
 
     }
     
     //Play slot spining sound 
-    private void PlaySpinSound()
+    public void PlaySpinSound()
     {
         SFXSource.PlayOneShot(SpinClip);
     }
