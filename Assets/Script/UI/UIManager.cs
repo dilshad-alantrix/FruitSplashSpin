@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button Menu;
     [SerializeField] private Button Shop;
     [SerializeField] private Button Info;
+    [SerializeField] private Button wheel;
     [SerializeField] private Button[] Backs;
     
     [Header("UI Panels")]
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject MenuPanel;
     [SerializeField] private GameObject InfoPanel;
     [SerializeField] private GameObject Coinpanel;
+    [SerializeField] private GameObject WheelPanel;
     [SerializeField] private GameObject BaackgroundPanel;
 
     [SerializeField] private GameObject MenuIcon;
@@ -58,6 +60,7 @@ public class UIManager : MonoBehaviour
         Shop.onClick.AddListener(shop);
         Info.onClick.AddListener(info);
         Menu.onClick.AddListener(menu);
+        wheel.onClick.AddListener(SpinnigWheel);
         foreach (var btn in Backs)
         {
             btn.onClick.AddListener(back);
@@ -72,6 +75,7 @@ public class UIManager : MonoBehaviour
         Shop.onClick.RemoveListener(shop);
         Info.onClick.RemoveListener(info);
         Menu.onClick.RemoveListener(menu);
+        wheel.onClick.AddListener(SpinnigWheel);
         foreach (var btn in Backs)
         {
             btn.onClick.RemoveListener(back);
@@ -87,6 +91,7 @@ public class UIManager : MonoBehaviour
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
         MenuIcon.SetActive(true);
+        WheelPanel.SetActive(false);
         BaackgroundPanel.SetActive(false);
 
         OnUIButtonPress?.Invoke();
@@ -118,6 +123,7 @@ public class UIManager : MonoBehaviour
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
         MenuIcon.SetActive(true);
+        WheelPanel.SetActive(false);
          BaackgroundPanel.SetActive(false);
 
         OnUIButtonPress?.Invoke();
@@ -130,6 +136,7 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(true);
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(false);
+        WheelPanel.SetActive(false);
          BaackgroundPanel.SetActive(true);
 
         OnUIButtonPress?.Invoke();
@@ -142,6 +149,7 @@ public class UIManager : MonoBehaviour
         Coinpanel.SetActive(false);
         MenuPanel.SetActive(false);
         InfoPanel.SetActive(true);
+        WheelPanel.SetActive(false);
          BaackgroundPanel.SetActive(true);
 
         OnUIButtonPress?.Invoke();
@@ -154,9 +162,24 @@ public class UIManager : MonoBehaviour
         MenuPanel.SetActive(true);
         InfoPanel.SetActive(false);
         MenuIcon.SetActive(false);
-         BaackgroundPanel.SetActive(true);
+        WheelPanel.SetActive(false);
+        BaackgroundPanel.SetActive(true);
 
         OnUIButtonPress?.Invoke();
 
     }
+    private void SpinnigWheel()
+    {
+        Homepanel.SetActive(false);
+        GamePanel.SetActive(true);
+        Coinpanel.SetActive(false);
+        MenuPanel.SetActive(false);
+        InfoPanel.SetActive(false);
+        WheelPanel.SetActive(true);
+        BaackgroundPanel.SetActive(true);
+
+        OnUIButtonPress?.Invoke();
+
+    }
+
 }
