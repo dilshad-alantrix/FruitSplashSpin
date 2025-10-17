@@ -84,13 +84,15 @@ public class GameController : Subject
                 }
                 else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[0].sprite == slotIcons[2].sprite)
         {
+                  
                     NotifyObserver(GameState.Win2x);
                     HapticFeedback.MediumFeedback();
 
                 }
                 else if (slotIcons[0].sprite != slotIcons[1].sprite && slotIcons[1].sprite != slotIcons[2].sprite
                  && slotIcons[0].sprite != slotIcons[2].sprite)
-        {
+        {           
+                   
                     NotifyObserver(GameState.Win1x);
                     HapticFeedback.HeavyFeedback();
 
